@@ -6,10 +6,10 @@ data class Post(
     val id: Int,
     var ownerId: Int,        //Идентификатор владельца стены, на которой размещена запись
     val fromId: Int,        //Идентификатор автора записи (от чьего имени опубликована запись)
-    val date: String = "23/01/2023" ,        //Время публикации записи в формате
-    val text: String = "text" ,      //Текст записи.
+    val date: String = "23/01/2023",        //Время публикации записи в формате
+    val text: String = "text",      //Текст записи.
     val friendsOnly: Boolean = false,    //если запись была создана с опцией «Только для друзей»
-    val canPin:Boolean = false,    //Информация о том, может ли текущий пользователь закрепить запись
+    val canPin: Boolean = false,    //Информация о том, может ли текущий пользователь закрепить запись
     val canDelete: Boolean = false, //Информация о том, может ли текущий пользователь удалить запись
     val canEdit: Boolean = false, //Информация о том, может ли текущий пользователь редактировать запись
     val isFavorite: Boolean = true, //true, если объект добавлен в закладки у текущего пользователя.
@@ -17,12 +17,13 @@ data class Post(
     val likes: Lakes,
     val repost: Post?  // проверка является данный пост репостом
 ) {}
+
 object WallService {
 
     var posts = emptyArray<Post>()
     var lastId = 0
     fun add(post: Post): Post {
-        val newIdPost = post.copy(id = lastId+1)
+        val newIdPost = post.copy(id = lastId + 1)
         repost(newIdPost)
         posts += newIdPost
         lastId++
@@ -51,9 +52,9 @@ object WallService {
     }
 
     fun repost(post: Post): Any {
-        if (post.repost == null){
+        if (post.repost == null) {
             return post
-        }else{
+        } else {
             var count = post.likes.count
             val newPost = post.copy((count + 100).also { post.likes.count = it })
             return newPost
@@ -82,7 +83,8 @@ object WallService {
 
 
 fun main() {
-    val post = Post(0,6835,4000,"01/02/2023",
+    val post = Post(
+        0, 6835, 4000, "01/02/2023",
         "Домашняя кошка - социальное животное, обладающее развитым интеллектом и способностями к общению, умеющее испытывать и выражать сложные чувства и эмоции.",
         friendsOnly = true,
         false,
@@ -162,26 +164,12 @@ fun main() {
         likes = Lakes(100),
         repost = post2
     )
-    val post6 = Post(
-        0,
-        6565,
-        5655,
-        "01/02/2023",
-        "Кошки являются плотоядными животными, представляя собой мелких хищников. ",
-        false,
-        false,
-        false,
-        false,
-        comments = Comments(28),
-        likes = Lakes(3),
-        repost = null
-    )
+
 
     WallService.add(post)
     WallService.add(post2)
     WallService.add(post3)
     WallService.add(repost)
-    WallService.add(post6)
     WallService.printPost(3)
     WallService.update(post5)
     WallService.update(post4)
