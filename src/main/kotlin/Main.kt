@@ -1,6 +1,3 @@
-import kotlin.random.Random
-import kotlin.text.Typography.copyright
-import Post as Post
 
 data class Post(
     val id: Int,
@@ -15,7 +12,9 @@ data class Post(
     val isFavorite: Boolean = true, //true, если объект добавлен в закладки у текущего пользователя.
     val comments: Comments,
     val likes: Lakes,
-    val repost: Post?  // проверка является данный пост репостом
+    val repost: Post?, // проверка является данный пост репостом
+   // val attachmentArray: Array<Attachment> = emptyArray()
+
 ) {}
 
 object WallService {
@@ -28,6 +27,10 @@ object WallService {
         posts += newIdPost
         lastId++
         return posts.last()
+    }
+    fun addAttachment(attachment: Attachment):Attachment{
+        var attachments = attachment
+        return attachment
     }
 
     fun update(post: Post): Boolean {
@@ -79,76 +82,62 @@ object WallService {
             }
         }
     }
+
 }
 
 
 fun main() {
+//    val attachments1 = emptyArray<Attachment>()
+//    val photo = PhotoAttachment(2122,"22/01/2022", photo = Photo(85,45))
+//    WallService.addAttachment(photo)
+//    val audio = AudioAttachment(2248, audio = Audio("Aleksey","Singl",30))
+//    WallService.addAttachment(audio)
+//    val video = VideoAttachment(2248, video = Video("cats",40))
+//    WallService.addAttachment(video)
+//    val link = LinkAttachment(link = Link("https://kotlinlang.org","kotlin","text"),2488)
+//    WallService.addAttachment(link)
+//    val graffiti = GraffitiAttachment(2244, graffiti = Graffiti(5555,"https://kartinkin.net"))
+//    WallService.addAttachment(graffiti)
     val post = Post(
         0, 6835, 4000, "01/02/2023",
         "Домашняя кошка - социальное животное, обладающее развитым интеллектом и способностями к общению, умеющее испытывать и выражать сложные чувства и эмоции.",
-        friendsOnly = true,
-        false,
-        false,
-        false,
         comments = Comments(12),
         likes = Lakes(100),
-        repost = null
+        repost = null,
+       // attachmentArray = attachments1
     )
-    val post2 = Post(
+   val post2 = Post(
         0,
         6987,
         4000,
         "01/02/2023",
         "Размеры тела котов и кошек, в среднем, составляют около 30-60 см в длину и 20-30 см в высоту",
-        false,
-        false,
-        false,
-        false,
         comments = Comments(10),
         likes = Lakes(115),
-        repost = null
-    )
+        repost = null,
+     //  attachmentArray = attachments1
+        )
     val post3 = Post(
-        0,
-        6565,
-        5655,
-        "01/02/2023",
-        "Кошки являются плотоядными животными, представляя собой мелких хищников. ",
-        false,
-        false,
-        false,
-        false,
-        comments = Comments(28),
-        likes = Lakes(3),
-        repost = null
-    )
-    val post4 = Post(
         8,
         65699,
         6565,
         "01/02/2023",
         "Кошки являются самыми распространёнными домашними питомцами в мире",
-        true,
-        true,
-        true,
-        true,
         comments = Comments(66),
         likes = Lakes(215),
-        repost = null
+        repost = null,
+    //    attachmentArray = attachments1
     )
     val post5 = Post(
-        3,
+        2,
         6565,
         2222,
         "01/02/2023",
         "Ложась на спину, кошки показывают своё доверие к человеку.",
-        false,
-        true,
-        true,
-        true,
         comments = Comments(11),
         likes = Lakes(101),
-        repost = null
+        repost = null,
+     //   attachmentArray = attachments1
     )
     val repost = Post(
         0,
@@ -156,24 +145,21 @@ fun main() {
         2222,
         "01/02/2023",
         "Ложась на спину, кошки показывают своё доверие к человеку.",
-        false,
-        true,
-        true,
-        true,
         comments = Comments(12),
         likes = Lakes(100),
-        repost = post2
+        repost = post2,
+      //  attachmentArray = attachments1
+
     )
 
 
     WallService.add(post)
     WallService.add(post2)
-    WallService.add(post3)
-    WallService.add(repost)
-    WallService.printPost(3)
+     WallService.add(repost)
+    WallService.printPost(2)
     WallService.update(post5)
-    WallService.update(post4)
-    WallService.printPost(3)
+    WallService.update(post3)
+    WallService.printPost(2)
     WallService.printPost(8)
-    WallService.printPost(4)
+    WallService.printPost(3)
 }
