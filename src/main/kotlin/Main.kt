@@ -1,6 +1,3 @@
-import kotlin.random.Random
-import kotlin.text.Typography.copyright
-import Post as Post
 
 data class Post(
     val id: Int,
@@ -15,11 +12,12 @@ data class Post(
     val isFavorite: Boolean = true, //true, если объект добавлен в закладки у текущего пользователя.
     val comments: Comments,
     val likes: Lakes,
-    val repost: Post?  // проверка является данный пост репостом
+    val repost: Post?, // проверка является данный пост репостом
+   var attachmentArray: Array<Attachment> = emptyArray()
+
 ) {}
 
 object WallService {
-
     var posts = emptyArray<Post>()
     var lastId = 0
     fun add(post: Post): Post {
@@ -79,76 +77,56 @@ object WallService {
             }
         }
     }
+
 }
 
 
 fun main() {
+
+
     val post = Post(
         0, 6835, 4000, "01/02/2023",
         "Домашняя кошка - социальное животное, обладающее развитым интеллектом и способностями к общению, умеющее испытывать и выражать сложные чувства и эмоции.",
-        friendsOnly = true,
-        false,
-        false,
-        false,
         comments = Comments(12),
         likes = Lakes(100),
-        repost = null
+        repost = null,
+
     )
-    val post2 = Post(
+    post.attachmentArray += PhotoAttachment(photo = Photo(200,200, 5,"25/02/2022"))
+    post.attachmentArray += AudioAttachment(audio = Audio("Name","Singl",23, 2233))
+    post.attachmentArray += VideoAttachment(video = Video("Cats",30,2233))
+    post.attachmentArray += LinkAttachment(link = Link(" url","Cats 2","about cats",3322))
+    post.attachmentArray += GraffitiAttachment(graffiti = Graffiti(2200,"url",1232))
+   val post2 = Post(
         0,
         6987,
         4000,
         "01/02/2023",
         "Размеры тела котов и кошек, в среднем, составляют около 30-60 см в длину и 20-30 см в высоту",
-        false,
-        false,
-        false,
-        false,
         comments = Comments(10),
         likes = Lakes(115),
         repost = null
-    )
+        )
     val post3 = Post(
-        0,
-        6565,
-        5655,
-        "01/02/2023",
-        "Кошки являются плотоядными животными, представляя собой мелких хищников. ",
-        false,
-        false,
-        false,
-        false,
-        comments = Comments(28),
-        likes = Lakes(3),
-        repost = null
-    )
-    val post4 = Post(
         8,
         65699,
         6565,
         "01/02/2023",
         "Кошки являются самыми распространёнными домашними питомцами в мире",
-        true,
-        true,
-        true,
-        true,
         comments = Comments(66),
         likes = Lakes(215),
         repost = null
     )
     val post5 = Post(
-        3,
+        2,
         6565,
         2222,
         "01/02/2023",
         "Ложась на спину, кошки показывают своё доверие к человеку.",
-        false,
-        true,
-        true,
-        true,
         comments = Comments(11),
         likes = Lakes(101),
         repost = null
+
     )
     val repost = Post(
         0,
@@ -156,10 +134,6 @@ fun main() {
         2222,
         "01/02/2023",
         "Ложась на спину, кошки показывают своё доверие к человеку.",
-        false,
-        true,
-        true,
-        true,
         comments = Comments(12),
         likes = Lakes(100),
         repost = post2
@@ -168,12 +142,12 @@ fun main() {
 
     WallService.add(post)
     WallService.add(post2)
-    WallService.add(post3)
-    WallService.add(repost)
-    WallService.printPost(3)
+     WallService.add(repost)
+    WallService.printPost(2)
     WallService.update(post5)
-    WallService.update(post4)
-    WallService.printPost(3)
+    WallService.update(post3)
+    WallService.printPost(2)
     WallService.printPost(8)
-    WallService.printPost(4)
+    WallService.printPost(3)
+    println(post.attachmentArray.last())
 }
