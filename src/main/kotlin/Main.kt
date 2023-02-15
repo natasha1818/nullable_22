@@ -92,11 +92,11 @@ fun main() {
         repost = null,
 
     )
-    post.attachmentArray += PhotoAttachment(5,"23/02/2022", photo = Photo(200,200))
-    post.attachmentArray += AudioAttachment(2233, audio = Audio("Name","Singl",23))
-    post.attachmentArray += VideoAttachment(2233, video = Video("Cats",30))
-    post.attachmentArray += LinkAttachment(link = Link(" url","Cats 2","about cats"),2233)
-    post.attachmentArray += GraffitiAttachment(2233, graffiti = Graffiti(2200,"url"))
+    post.attachmentArray += PhotoAttachment(photo = Photo(200,200, 5,"25/02/2022"))
+    post.attachmentArray += AudioAttachment(audio = Audio("Name","Singl",23, 2233))
+    post.attachmentArray += VideoAttachment(video = Video("Cats",30,2233))
+    post.attachmentArray += LinkAttachment(link = Link(" url","Cats 2","about cats",3322))
+    post.attachmentArray += GraffitiAttachment(graffiti = Graffiti(2200,"url",1232))
    val post2 = Post(
         0,
         6987,
